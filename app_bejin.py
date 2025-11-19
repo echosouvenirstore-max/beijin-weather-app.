@@ -9,10 +9,11 @@ def create_excel_report(yearly_data, monthly_data, avg_rain, wet_month, insight)
     """Generates the Excel file in memory."""
     output = io.BytesIO()
     
-    # Yearly Summary DataFrame for the Excel sheet
+    # Yearly Summary DataFrame for the Excel sheet (FIXED KEYS)
+    # Using 'Year' and 'Rainfall (mm)' as defined in the summary_data dictionary
     yearly_summary = pd.DataFrame({
-        'Year': yearly_data['Taona'],
-        'Total Rainfall (mm)': yearly_data['Orana (mm)'],
+        'Year': yearly_data['Year'],
+        'Total Rainfall (mm)': yearly_data['Rainfall (mm)'],
         'Status': yearly_data['Status'].str.replace(r' \(.*\)', '', regex=True) # Remove parentheses for cleaner data
     })
     
@@ -145,11 +146,18 @@ st.pyplot(fig)
 # --- 5. DOWNLOAD BUTTON (REAL EXCEL) ---
 st.write("---")
 
-# Generate the excel file content
-excel_data = create_excel_report(yearly_table_df, monthly_avg, avg_rain, wettest_month_name, insight_text)
+# Generate the excel file content (Ensuring explicit closure of the function call)
+excel_data = create_excel_report(
+    yearly_table_df, 
+    monthly_avg, 
+    avg_rain, 
+    wettest_month_name, 
+    insight_text
+)
 
 st.download_button(
     label="📥 Download Full Report (.xlsx)",
     data=excel_data,
     file_name="bejin_rainfall_report.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
