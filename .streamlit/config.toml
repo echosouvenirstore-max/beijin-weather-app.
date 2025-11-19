@@ -1,0 +1,13 @@
+[server]
+enableCORS = false
+enableXsrfProtection = false
+
+[client]
+toolbarMode = "viewer"
+
+[browser]
+gatherUsageStats = false
+
+[global]
+# SPECIFY PYTHON VERSION TO USE (Stable version for openpyxl)
+pythonVersion = "3.10"
